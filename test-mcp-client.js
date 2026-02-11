@@ -12,7 +12,7 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 
 async function testMCPServer() {
   console.log('🧪 Testing Carbon Emission MCP Server\n');
-  console.log('=' .repeat(60));
+  console.log('='.repeat(60));
 
   try {
     // Create transport
@@ -37,9 +37,9 @@ async function testMCPServer() {
     console.log('✅ Connected successfully!\n');
 
     // Test 1: List available tools
-    console.log('=' .repeat(60));
+    console.log('='.repeat(60));
     console.log('📋 TEST 1: Listing available tools');
-    console.log('=' .repeat(60));
+    console.log('='.repeat(60));
     const tools = await client.listTools();
     console.log(`Found ${tools.tools.length} tool(s):`);
     tools.tools.forEach((tool, index) => {
@@ -48,9 +48,9 @@ async function testMCPServer() {
     });
 
     // Test 2: Calculate carbon emissions
-    console.log('\n' + '=' .repeat(60));
+    console.log('\n' + '='.repeat(60));
     console.log('🧮 TEST 2: Calculate carbon emissions');
-    console.log('=' .repeat(60));
+    console.log('='.repeat(60));
     console.log('Input parameters:');
     const testParams = {
       electricityUsageKwh: 500,
@@ -72,9 +72,9 @@ async function testMCPServer() {
     console.log(JSON.stringify(parsedResult, null, 2));
 
     // Test 3: Compare two scenarios
-    console.log('\n' + '=' .repeat(60));
+    console.log('\n' + '='.repeat(60));
     console.log('⚖️  TEST 3: Compare emission scenarios');
-    console.log('=' .repeat(60));
+    console.log('='.repeat(60));
     
     const comparisonParams = {
       scenario1: {
@@ -111,9 +111,9 @@ async function testMCPServer() {
     console.log(JSON.stringify(parsedComparison, null, 2));
 
     // Test 4: List available resources
-    console.log('\n' + '=' .repeat(60));
+    console.log('\n' + '='.repeat(60));
     console.log('📚 TEST 4: Listing available resources');
-    console.log('=' .repeat(60));
+    console.log('='.repeat(60));
     const resources = await client.listResources();
     console.log(`Found ${resources.resources.length} resource(s):`);
     resources.resources.forEach((resource, index) => {
@@ -123,9 +123,9 @@ async function testMCPServer() {
     });
 
     // Test 5: Read emission factors resource
-    console.log('\n' + '=' .repeat(60));
+    console.log('\n' + '='.repeat(60));
     console.log('📖 TEST 5: Reading emission factors resource');
-    console.log('=' .repeat(60));
+    console.log('='.repeat(60));
     const factorsResource = await client.readResource({
       uri: 'emission://factors',
     });
@@ -133,20 +133,20 @@ async function testMCPServer() {
     console.log(factorsResource.contents[0].text);
 
     // Test 6: Read reduction guide resource
-    console.log('\n' + '=' .repeat(60));
+    console.log('\n' + '='.repeat(60));
     console.log('📖 TEST 6: Reading carbon reduction guide');
-    console.log('=' .repeat(60));
+    console.log('='.repeat(60));
     const guideResource = await client.readResource({
       uri: 'emission://guide',
     });
     console.log(guideResource.contents[0].text);
 
     // Close connection
-    console.log('\n' + '=' .repeat(60));
+    console.log('\n' + '='.repeat(60));
     console.log('🔌 Closing connection...');
     await client.close();
     console.log('✅ All tests completed successfully!');
-    console.log('=' .repeat(60));
+    console.log('='.repeat(60));
 
   } catch (error) {
     console.error('❌ Error during testing:', error.message);
