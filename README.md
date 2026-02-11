@@ -79,7 +79,9 @@ npm install
 ### Running the Server
 
 ```bash
-node server.js
+node server.cjs
+# or
+npm start
 ```
 
 The server will start on port 8080.
