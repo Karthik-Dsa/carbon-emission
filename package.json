@@ -1,15 +1,20 @@
 {
   "name": "carbon-emission",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Carbon emission calculator with React frontend",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "dev": "cd client && npm start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1"
   }
 }
