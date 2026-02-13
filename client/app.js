@@ -217,7 +217,7 @@ formInputs.forEach(input => {
             // Only auto-submit if form is valid
             const form = document.getElementById('carbonForm');
             if (form.checkValidity()) {
-                form.dispatchEvent(new Event('submit'));
+                form.requestSubmit();
             }
         }, 500); // Wait 500ms after user stops typing
     });

@@ -87,7 +87,8 @@ class SimpleChart {
         const labelStep = Math.ceil(data.labels.length / 6); // Show max 6 labels
         data.labels.forEach((label, i) => {
             if (i % labelStep === 0 || i === data.labels.length - 1) {
-                const x = padding.left + (chartWidth / (data.labels.length - 1 || 1)) * i;
+                const labelCount = Math.max(data.labels.length - 1, 1);
+                const x = padding.left + (chartWidth / labelCount) * i;
                 ctx.fillText(label, x, this.height - padding.bottom + 20);
             }
         });
@@ -104,7 +105,8 @@ class SimpleChart {
             if (dataset.fill) {
                 ctx.beginPath();
                 dataset.data.forEach((value, i) => {
-                    const x = padding.left + (chartWidth / (data.labels.length - 1 || 1)) * i;
+                    const labelCount = Math.max(data.labels.length - 1, 1);
+                    const x = padding.left + (chartWidth / labelCount) * i;
                     const y = padding.top + chartHeight - (value / maxValue) * chartHeight;
                     
                     if (i === 0) {
@@ -122,7 +124,8 @@ class SimpleChart {
             // Draw line
             ctx.beginPath();
             dataset.data.forEach((value, i) => {
-                const x = padding.left + (chartWidth / (data.labels.length - 1 || 1)) * i;
+                const labelCount = Math.max(data.labels.length - 1, 1);
+                const x = padding.left + (chartWidth / labelCount) * i;
                 const y = padding.top + chartHeight - (value / maxValue) * chartHeight;
                 
                 if (i === 0) {
@@ -135,7 +138,8 @@ class SimpleChart {
 
             // Draw points
             dataset.data.forEach((value, i) => {
-                const x = padding.left + (chartWidth / (data.labels.length - 1 || 1)) * i;
+                const labelCount = Math.max(data.labels.length - 1, 1);
+                const x = padding.left + (chartWidth / labelCount) * i;
                 const y = padding.top + chartHeight - (value / maxValue) * chartHeight;
                 
                 ctx.fillStyle = dataset.pointBackgroundColor || dataset.borderColor;

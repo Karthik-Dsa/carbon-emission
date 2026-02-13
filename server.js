@@ -23,11 +23,6 @@ app.post('/calculate', (req, res) => {
     }
 });
 
-// Serve index.html for root route
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'index.html'));
-});
-
 app.listen(port, () => {
     console.log(`WEBSITE is running on http://localhost:${port}`);
 });
