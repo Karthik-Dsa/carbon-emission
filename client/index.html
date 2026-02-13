@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Emission Calculator</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Nature-themed custom colors */
+        :root {
+            --forest-green: #2d5016;
+            --leaf-green: #4a7c2c;
+            --grass-green: #7cb342;
+            --sky-blue: #87ceeb;
+            --earth-brown: #8b7355;
+            --moss-green: #8db255;
+            --sage-green: #9caf88;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--leaf-green);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .nature-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--sage-green);
+            box-shadow: 0 8px 32px rgba(45, 80, 22, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--forest-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            margin-bottom: 0.5rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--moss-green);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--forest-green);
+            box-shadow: 0 0 0 3px rgba(74, 124, 44, 0.2);
+        }
+
+        .flight-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, var(--leaf-green), var(--grass-green));
+            color: white;
+            font-weight: bold;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 124, 44, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .emission-stat {
+            background: linear-gradient(135deg, rgba(124, 179, 66, 0.1), rgba(156, 175, 136, 0.1));
+            border-left: 4px solid var(--grass-green);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .emission-stat h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .emission-stat .value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--leaf-green);
+        }
+
+        .emission-stat .unit {
+            font-size: 1.5rem;
+        }
+
+        .breakdown {
+            margin-top: 1rem;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            background: rgba(124, 179, 66, 0.05);
+        }
+
+        .breakdown-item .label {
+            font-weight: 600;
+            color: var(--forest-green);
+        }
+
+        .breakdown-item .amount {
+            font-weight: bold;
+            color: var(--leaf-green);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-top: 1.5rem;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🌍 Carbon Emission Calculator</h1>
+            <p class="subtitle">Track your environmental impact and reduce your carbon footprint</p>
+        </header>
+
+        <div class="grid">
+            <!-- Calculator Form -->
+            <div class="nature-card">
+                <h2>🌿 Your Carbon Data</h2>
+                
+                <form id="carbonForm">
+                    <!-- Electricity Usage -->
+                    <div class="form-group">
+                        <label for="electricityUsageKwh">Monthly Electricity Usage (kWh)</label>
+                        <input 
+                            type="number" 
+                            id="electricityUsageKwh"
+                            placeholder="e.g., 300"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+                    </div>
+
+                    <!-- Transportation -->
+                    <div class="form-group">
+                        <label for="transportationUsagePerMonth">Monthly Transportation Distance (km)</label>
+                        <input 
+                            type="number" 
+                            id="transportationUsagePerMonth"
+                            placeholder="e.g., 500"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+                    </div>
+
+                    <!-- Flight Information -->
+                    <div class="form-group">
+                        <div class="flight-grid">
+                            <div>
+                                <label for="shortFlight">Short Flights/year</label>
+                                <input 
+                                    type="number" 
+                                    id="shortFlight"
+                                    placeholder="0"
+                                    min="0"
+                                    value="0"
+                                >
+                            </div>
+                            <div>
+                                <label for="mediumFlight">Medium Flights/year</label>
+                                <input 
+                                    type="number" 
+                                    id="mediumFlight"
+                                    placeholder="0"
+                                    min="0"
+                                    value="0"
+                                >
+                            </div>
+                            <div>
+                                <label for="largeFlight">Large Flights/year</label>
+                                <input 
+                                    type="number" 
+                                    id="largeFlight"
+                                    placeholder="0"
+                                    min="0"
+                                    value="0"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dietary Choice -->
+                    <div class="form-group">
+                        <label for="dietaryChoice">Dietary Choice</label>
+                        <select id="dietaryChoice" required>
+                            <option value="">Select your diet</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="non_vegetarian">Non-Vegetarian</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit">Calculate My Impact 🌱</button>
+                </form>
+            </div>
+
+            <!-- Results and Chart -->
+            <div>
+                <!-- Yearly Total Emissions -->
+                <div id="resultsSection" class="nature-card hidden">
+                    <h2>🌳 Your Environmental Impact</h2>
+
+                    <!-- Total Yearly Emissions - Highlighted -->
+                    <div class="emission-stat">
+                        <h3>Total Yearly Emissions</h3>
+                        <p>
+                            <span class="value" id="totalYearlyEmissions">0</span>
+                            <span class="unit">kgCO₂/year</span>
+                        </p>
+                    </div>
+
+                    <!-- Breakdown -->
+                    <div class="breakdown">
+                        <div class="breakdown-item">
+                            <span class="label">⚡ Electricity</span>
+                            <span class="amount"><span id="totalElectricityUsage">0</span> kgCO₂/year</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="label">🚗 Transportation</span>
+                            <span class="amount"><span id="totalTransportationUsage">0</span> kgCO₂/year</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="label">✈️ Air Travel</span>
+                            <span class="amount"><span id="totalEmissionFlight">0</span> kgCO₂/year</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="label">🍽️ Diet</span>
+                            <span class="amount"><span id="dietaryChoiceEmission">0</span> kgCO₂/year</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-time Chart -->
+                <div id="chartSection" class="nature-card hidden" style="margin-top: 2rem;">
+                    <h2>📊 Emissions History</h2>
+                    <div class="chart-container">
+                        <canvas id="emissionsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="chart-simple.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
