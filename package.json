@@ -1,15 +1,31 @@
 {
   "name": "carbon-emission",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Web-based carbon emission calculator to track your environmental impact",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mcp": "node mcp.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "carbon",
+    "emissions",
+    "calculator",
+    "environment",
+    "sustainability"
+  ],
+  "author": "Karthik-Dsa",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Karthik-Dsa/carbon-emission.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Karthik-Dsa/carbon-emission/issues"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",
     "express": "^5.2.1",
