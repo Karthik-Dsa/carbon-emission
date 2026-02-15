@@ -13,7 +13,7 @@ This application provides an intuitive interface for calculating and visualizing
 - **Comprehensive Metrics**: Track emissions from:
   - Electricity consumption
   - Transportation (monthly kilometers)
-  - Air travel (short, medium, and long-haul flights)
+  - Air travel (short, medium, and large/long-haul flights)
   - Dietary choices (vegetarian vs. non-vegetarian)
 - **RESTful API**: Backend API for carbon calculations
 - **MCP Integration**: Model Context Protocol server for AI-powered interactions
@@ -56,7 +56,7 @@ http://localhost:8080
 1. Open the application in your web browser
 2. Enter your monthly electricity usage in kWh
 3. Input your monthly transportation distance in kilometers
-4. Specify the number of flights taken annually (short, medium, and long-haul)
+4. Specify the number of flights taken annually (short, medium, and large/long-haul)
 5. Select your dietary preference (vegetarian or non-vegetarian)
 6. View your annual carbon footprint calculations in real-time
 7. Analyze the breakdown chart to see which activities contribute most to your emissions
@@ -156,7 +156,7 @@ The calculator uses the following emission factors:
 - **Flights**:
   - Short-haul: 100 kg CO₂ per flight
   - Medium-haul: 200 kg CO₂ per flight
-  - Long-haul: 300 kg CO₂ per flight
+  - Large/Long-haul: 300 kg CO₂ per flight
 - **Dietary Choices**:
   - Vegetarian: 400 kg CO₂/year
   - Non-vegetarian: 800 kg CO₂/year
