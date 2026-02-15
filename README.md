@@ -56,7 +56,7 @@ http://localhost:8080
 1. Open the application in your web browser
 2. Enter your monthly electricity usage in kWh
 3. Input your monthly transportation distance in kilometers
-4. Specify the number of flights taken annually (short, medium, and large)
+4. Specify the number of flights taken annually (short, medium, and long-haul)
 5. Select your dietary preference (vegetarian or non-vegetarian)
 6. View your annual carbon footprint calculations in real-time
 7. Analyze the breakdown chart to see which activities contribute most to your emissions
